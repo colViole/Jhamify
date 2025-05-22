@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jhamify</title>
+  <link href="./styles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-[#1a1a1a] to-black font-sans min-h-screen text-white">
+  <!-- Main Container -->
+  <div class="container mx-auto px-2 sm:px-4">
+    <!-- NavBar -->
+    <nav class="flex items-center justify-between py-4">
+      <!-- Left Nav Item -->
+      <div>
+        <button title="Info Page" class="p-2 hover:text-[#ff7070]">
+          <i class="fas fa-ellipsis"></i>
+        </button>
+      </div>
+      
+      <!-- Centered Group (Headphones + Search) -->
+      <div class="flex items-center justify-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4">
+        <!-- Headphones Button -->
+        <button title="Home Page" class="w-10 h-10 bg-[#141414] rounded-full hover:text-[#ff7070] flex items-center justify-center flex-shrink-0">
+          <i class="fas fa-headphones"></i>
+        </button>
+        
+        <!-- Search Bar -->
+        <div class="flex-1 max-w-2xl">
+          <form class="flex items-center bg-[#333] rounded-full hover:outline h-10 px-3 w-full">
+            <i class="fas fa-search text-xs mr-2"></i>
+            <input class="w-full bg-transparent placeholder:text-xs focus:outline-none" 
+                   type="search" 
+                   placeholder="I seek for ways to show you my love.">
+          </form>
+        </div>
+      </div>
+      
+      <!-- Right Nav Items -->
+      <div class="flex items-center space-x-2 sm:space-x-4">
+        <button title="Letters" class="p-2 text-[#b1b1b1] hover:text-[#ff7070]">
+          <i class="fas fa-envelope"></i>
+        </button>
+        <button title="Account" class="w-10 h-10 bg-[#333] hover:bg-[#444] rounded-full overflow-hidden">
+          <img class="w-full h-full object-cover" src="/assets/avatar.png" alt="Profile">
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-9 gap-1 mt-4">
+      <!-- Sidebar - Shows on larger screens -->
+      <div class="lg:col-span-2 space-y-4 hidden lg:block">
+        <!-- Library Section -->
+        <div class="bg-gradient-to-b from-[#460101] from-1% to-[#121212] rounded p-3 mb-1">
+          <h2 class="text-sm font-bold mb-3">Your Library</h2>
+          <button id="favorite-song" class="library-playlist flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
+            <img class="w-10 h-10 object-cover rounded" src="/assets/heart.png" alt="Playlist">
+            <div class="ml-2">
+              <span class="block text-xs font-bold">Favorite Song</span>
+              <span class="block text-[10px] text-[#b1b1b1]">1 song</span>
+            </div>
+          </button>
+          <button id="created-playlist" class="library-playlist flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
+            <img class="w-10 h-10 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
+            <div class="ml-2">
+              <span class="block text-xs font-bold">Songs that remind me of you</span>
+              <span class="block text-[10px] text-[#b1b1b1]">Oshi</span>
+            </div>
+          </button>
+        </div>
+        
+        <!-- Music Player -->
+        <div class="bg-[#121212] rounded p-3 mb-1">
+          <h2 class="text-sm font-bold mb-3 ml-3">Now Playing</h2>
+          <div class="flex flex-col items-center">
+            <!-- Album Art -->
+            <div class="w-32 h-32 md:w-72 md:h-72 mb-4 overflow-hidden rounded-lg shadow-lg">
+              <img class="w-full h-full object-cover" src="/assets/music.png" alt="Album Cover">
+            </div>
+            
+            <!-- Song Info -->
+            <div class="w-full text-left mb-4 ml-4">
+              <h3 class="text-sm font-bold truncate">No Song</h3>
+              <p class="text-xs text-[#b1b1b1] truncate">Unknown Artist</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center bg-[#121212] rounded p-3">
+          <!-- Progress Bar -->
+            <div class="w-60 mb-2">
+              <div class="flex justify-between text-xs text-[#b1b1b1] mb-1">
+                <span>1:23</span>
+                <span>3:45</span>
+              </div>
+              <div class="h-1 bg-[#333] rounded-full">
+                <div class="h-full bg-[#ff7070] rounded-full" style="width: 35%"></div>
+              </div>
+            </div>
+            
+            <!-- Controls -->
+            <div class="flex items-center justify-center space-x-6">
+              <button class="text-[#b1b1b1] hover:text-white">
+                <i class="fas fa-backward text-lg"></i>
+              </button>
+              <button class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:scale-105">
+                <i class="fas fa-play"></i>
+              </button>
+              <button class="text-[#b1b1b1] hover:text-white">
+                <i class="fas fa-forward text-lg"></i>
+              </button>
+            </div>
+            
+            <!-- Volume Control (visible on larger screens) -->
+            <div class="hidden md:flex items-center w-20 mt-4 space-x-2">
+              <i class="fas fa-volume-down text-xs text-[#b1b1b1]"></i>
+              <div class="flex-1 h-1 bg-[#333] rounded-full">
+                <div class="h-full bg-[#b1b1b1] rounded-full" style="width: 70%"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="lg:col-span-7 bg-gradient-to-b from-[#460101] from-1% to-[#121212] rounded p-3">
+        <!-- Featured Content -->
+        <div class="mb-6">
+          <img class="w-full rounded shadow-lg" src="/assets/JhamifyFeature.jpeg" alt="Featured">
+        </div>
+        
+        <!-- Playlist Section -->
+        <div>
+          <p class="text-xs text-[#b1b1b1] font-bold">Made for</p>
+          <h1 class="text-xl font-bold mb-4">Mimi</h1>
+          <button class="flex items-center w-xl max-md:w-full p-2 bg-[#333] hover:bg-[#444] rounded text-left">
+            <img class="w-12 h-12 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
+            <div class="ml-3">
+              <span class="block text-sm font-bold">Songs that remind me of you</span>
+              <span class="block text-xs text-[#b1b1b1]">Oshi</span>
+            </div>
+          </button>
+          <button class="flex items-center w-xl max-md:w-full p-2 mt-3 bg-[#333] hover:bg-[#444] rounded text-left">
+            <img class="w-12 h-12 object-cover rounded" src="/assets/heart.png" alt="Playlist">
+            <div class="ml-3">
+              <span class="block text-sm font-bold">Favorite Song</span>
+              <span class="block text-xs text-[#b1b1b1]">1 song</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/dist/app.js"></script>
+</body>
+</html>
