@@ -45,7 +45,7 @@
       <!-- Centered Group (Headphones + Search) -->
       <div class="flex items-center justify-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4">
         <!-- Headphones Button -->
-        <a href="home.html" title="Home Page" class="w-10 h-10 bg-[#141414] rounded-full hover:text-[#ff7070] flex items-center justify-center flex-shrink-0">
+        <a onclick="showMainView()" href="#home" title="Home Page" class="w-10 h-10 bg-[#141414] rounded-full hover:text-[#ff7070] flex items-center justify-center flex-shrink-0">
           <i class="fas fa-headphones"></i>
         </a>
         
@@ -94,17 +94,17 @@
         
         <!-- Music Player -->
         <div class="bg-[#121212] rounded p-3 mb-1">
-          <h2 class="text-sm font-bold mb-3 ml-3">Now Playing</h2>
+          <h2 class="text-sm font-bold mb-3 ml-1">Now Playing</h2>
           <div class="flex flex-col items-center w-full h-full">
             <!-- Album Art -->
             <div class=" mb-4 overflow-hidden rounded-lg shadow-lg">
-              <img class="w-full h-full" src="/assets/music.png" alt="Album Cover">
+              <img id="song-cover" class="w-full h-full" src="/assets/music.png" alt="Album Cover">
             </div>
           </div>
           <!-- Song Info -->
-            <div class="w-full text-left mb-4 ml-4">
-              <h3 class="text-sm font-bold truncate">No Song</h3>
-              <p class="text-xs text-[#b1b1b1] truncate">Unknown Artist</p>
+            <div class="w-full text-left mb-4 ml-1">
+              <h3 id="song-title" class="text-sm font-bold truncate">No Song</h3>
+              <p id="song-artist" class="text-xs text-[#b1b1b1] truncate">Unknown Artist</p>
             </div>
         </div>
 
@@ -112,11 +112,11 @@
           <!-- Progress Bar -->
             <div class="w-60 mb-2">
               <div class="flex justify-between text-xs text-[#b1b1b1] mb-1">
-                <span>1:23</span>
-                <span>3:45</span>
+                <span>0:00</span>
+                <span>0:00</span>
               </div>
               <div class="h-1 bg-[#333] rounded-full">
-                <div class="h-full bg-[#ff7070] rounded-full" style="width: 35%"></div>
+                <div id="progress-bar" class="h-full bg-[#ff7070] rounded-full" style="width: 35%"></div>
               </div>
             </div>
             
@@ -195,7 +195,7 @@
           <div class="flex-1 mt-6 bg-neutral-900/30 max-sm:bg-black/40 max-h-full">
             <div class="flex items-center justify-between py-3">
               <div class="pl-4">
-                <button class="w-13 h-13 max-sm:w-9 max-sm:h-9 bg-[#940808] hover:bg-[#b61515] rounded-full">
+                <button id="fav-song-play-button" class="w-13 h-13 max-sm:w-9 max-sm:h-9 bg-[#940808] hover:bg-[#b61515] rounded-full transition-colors">
                   <i class="fa-solid fa-play"></i>
                 </button>
                 <button>
@@ -232,7 +232,7 @@
                     <div class="w-10 h-10 ml-3">
                       <img class="w-full h-full object-cover rounded" src="/assets/Love.jpeg">
                     </div>
-                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">love.</p>
+                    <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">love.</p>
                   </div>
                   <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
                     <p class="w-full">wave to earth</p>
@@ -260,7 +260,11 @@
     </div>
   </div>
 
+  <!-- Audio -->
+  <audio id="love-by-wavetoearth" src="/assets/music/wave to earth - love. (Official Lyric Video).mp3"></audio>
+
   <!-- Scripts -->
-  <script src="/dist/app.js"></script>
+  <script src="/dist/js/favorite-song-section.js"></script>
+  <script src="/dist/js/buttons.js"></script>
 </body>
 </html>
