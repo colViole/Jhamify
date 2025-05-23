@@ -7,29 +7,6 @@
   <link href="./styles.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<style>
-::-webkit-scrollbar {
-  width: 5px; 
-}
-
-::-webkit-scrollbar-track {
-  background: #121212; 
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #535353; 
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #686868;
-}
-
-::-webkit-scrollbar-corner {
-  background: #121212; 
-}
-</style>
 <body class="bg-gradient-to-b from-[#1a1a1a] to-black font-sans min-h-screen text-white">
   <!-- Main Container -->
   <div class="container justify-self-center px-2 sm:px-4 2xl:mx-0">
@@ -83,7 +60,7 @@
               <span class="block text-[10px] text-[#b1b1b1]">1 song</span>
             </div>
           </a>
-          <a id="created-playlist" class="flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
+          <a id="created-playlist" class="library-playlist flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
             <img class="w-10 h-10 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
             <div class="ml-2">
               <span class="block text-xs font-bold">Songs that remind me of you</span>
@@ -144,57 +121,33 @@
       </div>
 
       <!-- Main Content Area -->
-      <div id="main-content-area" class="lg:col-span-7 bg-gradient-to-b from-[#460101] from-1% to-[#121212] max-sm:from-[#460101]/70 rounded">
-        <!-- Featured Content -->
-        <div class="mb-6 p-2">
-          <img class="w-full rounded shadow-lg" src="/assets/JhamifyFeature.jpeg" alt="Featured">
-        </div>
-        
-        <!-- Playlist Section -->
-        <div class="mx-3 max-sm:mx-3 max-lg:h-[calc(100vh-450px)]">
-          <p class="text-xs text-[#b1b1b1] font-bold">Made for</p>
-          <h1 class="text-xl font-bold mb-4">Mimi</h1>
-          <button class="flex items-center lg:w-sm w-full p-2 bg-[#333] hover:bg-[#444] rounded text-left">
-            <img class="w-12 h-12 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
-            <div class="ml-3">
-              <span class="block text-sm font-bold">Songs that remind me of you</span>
-              <span class="block text-xs text-[#b1b1b1]">Oshi</span>
-            </div>
-          </button>
-          <button id="favorite-song-content" href="#favorite-song" class="favorite-song flex items-center lg:w-sm w-full p-2 mt-3 bg-[#333] hover:bg-[#444] rounded text-left">
-            <img class="w-12 h-12 object-cover rounded" src="/assets/heart.png" alt="Playlist">
-            <div class="ml-3">
-              <span class="block text-sm font-bold">Favorite Song</span>
-              <span class="block text-xs text-[#b1b1b1]">1 song</span>
-            </div>
-          </button>
-        </div>
-      </div>
-      <!-- Favorite Song -->
-      <div id="favorite-song-container" class="lg:col-span-7 bg-gradient-to-b from-[#460101]/70 max-sm:from-[#460101]/70 rounded hidden">
-        <!-- Featured Content -->
-        <div class="flex justify-left items-left pt-15">
+      <div id="main-content-area" class="lg:col-span-7 bg-gradient-to-b from-[#460101] from-1% to-[#121212] max-sm:from-[#460101]/70 rounded flex flex-col min-h-[calc(100vh-250px)]">
+      <!-- Featured Content -->
+        <div class="flex flex-col justify-left w-full items-left pt-15">
           <!-- Banner -->
-          <div class="flex flex-row h-40 sm:h-50 max-sm:h-18 pl-3">
-            <div>
-              <img class="rounded sm:h-full shadow-lg h-40 max-sm:h-20" src="/assets/heart.png">
-            </div>
-            <div class="font-[arial] font-semibold ml-3">
-              <p class="text-xs mt-12 max-sm:mt-2 max-sm:text-[9px] -mb-2 max-sm:-mb-4">Playlist</p><br>
-              <p class="lg:text-7xl md:text-5xl sm:text-4xl text-3xl max-sm:text-[23px]">Favorite Songs</p>
-              <div class="flex">
-                <div class="w-5 h-5 max-sm:w-4 max-sm:h-4 sm:w-8 sm:h-8 bg-[#333] hover:bg-[#444] rounded-full overflow-hidden mt-4 max-sm:mt-2">
-                  <img class="w-full h-full object-cover" src="/assets/avatar.png" alt="Profile">
+          <div class="flex-shrink-0">
+            <div class="flex flex-row h-40 sm:h-50 max-sm:h-18 pl-3">
+              <div>
+                <img class="rounded sm:h-full shadow-lg h-40 max-sm:h-20" src="/assets/heart.png">
+              </div>
+              <div class="font-[arial] font-semibold ml-3">
+                <p class="text-xs mt-12 max-sm:mt-2 max-sm:text-[9px] -mb-2 max-sm:-mb-4">Playlist</p><br>
+                <p class="lg:text-7xl md:text-5xl sm:text-4xl text-3xl max-sm:text-[23px]">Favorite Songs</p>
+                <div class="flex">
+                  <div class="w-5 h-5 max-sm:w-4 max-sm:h-4 sm:w-8 sm:h-8 bg-[#333] hover:bg-[#444] rounded-full overflow-hidden mt-4 max-sm:mt-2">
+                    <img class="w-full h-full object-cover" src="/assets/avatar.png" alt="Profile">
+                  </div>
+                  <p class="text-xs font-semibold ml-2 mt-5 sm:mt-6 max-sm:mt-3 max-sm:text-[9px]">Mimi<span class="text-[#b1b1b1]"> - 1 song</span></p>
                 </div>
-                <p class="text-xs font-semibold ml-2 mt-5 sm:mt-6 max-sm:mt-3 max-sm:text-[9px]">Mimi<span class="text-[#b1b1b1]"> - 1 song</span></p>
               </div>
             </div>
           </div>
         </div>
         <!-- Content -->
-          <div class="flex-1 mt-6 bg-neutral-900/30 max-sm:bg-black/40 max-h-full">
+        <div class="flex-1 flex flex-col overflow-hidden mt-5">
+          <div class="bg-neutral-900/30 max-sm:bg-black/40 w-full flex-1 flex flex-col">
             <div class="flex items-center justify-between py-3">
-              <div class="pl-4">
+              <div class="flex-shrink-0 pl-4">
                 <button class="w-13 h-13 max-sm:w-9 max-sm:h-9 bg-[#940808] hover:bg-[#b61515] rounded-full">
                   <i class="fa-solid fa-play"></i>
                 </button>
@@ -221,19 +174,18 @@
             </div>
             <hr class="w-11/12 mx-auto text-[#444] max-sm:hidden mb-2">
             <!-- Songs -->
-            <div class="full">
-              <div class="flex-1 w-full max-sm:h-[calc(100vh-100px)]">
+            <div class="flex-1 w-full">
               <!-- Scrollable content -->
-              <div class="max-h-70 max-sm:h-full overflow-y-auto pl-9.5 pr-10 max-sm:px-2">
+              <div class="flex-1 overflow-y-auto px-9.5 max-sm:px-2">
                 <!-- Song Row -->
-                <button id="love-w2e" class="love flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
-                  <div class="flex items-center text-center">
+                <div class="flex items-center w-full justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                  <button id="love-w2e" class="flex items-center text-center">
                     <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="1">1</p>
                     <div class="w-10 h-10 ml-3">
                       <img class="w-full h-full object-cover rounded" src="/assets/Love.jpeg">
                     </div>
-                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">love.</p>
-                  </div>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:-ml-5  max-sm:pr-1">love.</p>
+                  </button>
                   <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
                     <p class="w-full">wave to earth</p>
                     <p class="w-full">5:08</p>
@@ -243,19 +195,14 @@
                       <i class="fas fa-envelope"></i>
                     </a>
                   </div>
-                </button>
-                <div class="h-15 max-sm:h-12">
                 </div>
-                <div class="h-15 max-sm:h-12">
-                </div>
-                <div class="h-15 max-sm:h-12">
-                </div>
-              </div>
-              <div class="h-20">
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <!-- Favorite Song -->
+      <div id="favorite-song-container" class="lg:col-span-7 bg-gradient-to-b from-[#460101]/80 max-sm:from-[#460101]/70 rounded hidden">
       </div>
     </div>
   </div>

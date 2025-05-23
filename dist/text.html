@@ -44,8 +44,7 @@
       
       <!-- Centered Group (Headphones + Search) -->
       <div class="flex items-center justify-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4">
-        <!-- Headphones Button -->
-        <a href="home.html" title="Home Page" class="w-10 h-10 bg-[#141414] rounded-full hover:text-[#ff7070] flex items-center justify-center flex-shrink-0">
+        <a title="Home Page" class="w-10 h-10 bg-[#141414] rounded-full hover:text-[#ff7070] flex items-center justify-center flex-shrink-0">
           <i class="fas fa-headphones"></i>
         </a>
         
@@ -53,7 +52,9 @@
         <div class="flex-1 max-w-2xl">
           <form class="flex items-center bg-[#333] rounded-full hover:outline h-10 px-3 w-full">
             <i class="fas fa-search text-xs mr-2"></i>
-            <input class="w-full bg-transparent placeholder:text-xs focus:outline-none" type="search" placeholder="I seek for ways to show you my love.">
+            <input class="w-full bg-transparent placeholder:text-xs focus:outline-none" 
+                   type="search" 
+                   placeholder="I seek for ways to show you my love.">
           </form>
         </div>
       </div>
@@ -76,14 +77,14 @@
         <!-- Library Section -->
         <div class="bg-gradient-to-b from-[#460101] from-1% to-[#121212] rounded p-3 mb-1">
           <h2 class="text-sm font-bold mb-3">Your Library</h2>
-          <a id="favorite-song-library" href="#favorite-song" class="favorite-song flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
+          <a class="favorite-song flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
             <img class="w-10 h-10 object-cover rounded" src="/assets/heart.png" alt="Playlist">
             <div class="ml-2">
               <span class="block text-xs font-bold">Favorite Song</span>
               <span class="block text-[10px] text-[#b1b1b1]">1 song</span>
             </div>
           </a>
-          <a id="created-playlist" class="flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
+          <a id="created-playlist" class="library-playlist flex items-center w-full p-2 hover:bg-[#333] transition-colors rounded text-left">
             <img class="w-10 h-10 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
             <div class="ml-2">
               <span class="block text-xs font-bold">Songs that remind me of you</span>
@@ -144,34 +145,7 @@
       </div>
 
       <!-- Main Content Area -->
-      <div id="main-content-area" class="lg:col-span-7 bg-gradient-to-b from-[#460101] from-1% to-[#121212] max-sm:from-[#460101]/70 rounded">
-        <!-- Featured Content -->
-        <div class="mb-6 p-2">
-          <img class="w-full rounded shadow-lg" src="/assets/JhamifyFeature.jpeg" alt="Featured">
-        </div>
-        
-        <!-- Playlist Section -->
-        <div class="mx-3 max-sm:mx-3 max-lg:h-[calc(100vh-450px)]">
-          <p class="text-xs text-[#b1b1b1] font-bold">Made for</p>
-          <h1 class="text-xl font-bold mb-4">Mimi</h1>
-          <button class="flex items-center lg:w-sm w-full p-2 bg-[#333] hover:bg-[#444] rounded text-left">
-            <img class="w-12 h-12 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
-            <div class="ml-3">
-              <span class="block text-sm font-bold">Songs that remind me of you</span>
-              <span class="block text-xs text-[#b1b1b1]">Oshi</span>
-            </div>
-          </button>
-          <button id="favorite-song-content" href="#favorite-song" class="favorite-song flex items-center lg:w-sm w-full p-2 mt-3 bg-[#333] hover:bg-[#444] rounded text-left">
-            <img class="w-12 h-12 object-cover rounded" src="/assets/heart.png" alt="Playlist">
-            <div class="ml-3">
-              <span class="block text-sm font-bold">Favorite Song</span>
-              <span class="block text-xs text-[#b1b1b1]">1 song</span>
-            </div>
-          </button>
-        </div>
-      </div>
-      <!-- Favorite Song -->
-      <div id="favorite-song-container" class="lg:col-span-7 bg-gradient-to-b from-[#460101]/70 max-sm:from-[#460101]/70 rounded hidden">
+      <div id="main-content-area" class="lg:col-span-7 bg-gradient-to-b from-[#460101]/70 max-sm:from-[#460101]/70 rounded">
         <!-- Featured Content -->
         <div class="flex justify-left items-left pt-15">
           <!-- Banner -->
@@ -224,34 +198,136 @@
             <div class="full">
               <div class="flex-1 w-full max-sm:h-[calc(100vh-100px)]">
               <!-- Scrollable content -->
-              <div class="max-h-70 max-sm:h-full overflow-y-auto pl-9.5 pr-10 max-sm:px-2">
+              <div class="max-h-70 max-sm:h-full overflow-y-auto pl-9.5 pr-6 max-sm:px-2">
                 <!-- Song Row -->
-                <button id="love-w2e" class="love flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                <div class="flex items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
                   <div class="flex items-center text-center">
-                    <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="1">1</p>
+                    <p class="px-4 max-sm:pl-2 max-sm:pr-1">1</p>
                     <div class="w-10 h-10 ml-3">
-                      <img class="w-full h-full object-cover rounded" src="/assets/Love.jpeg">
+                      <img class="w-full h-full object-cover rounded" src="/assets/Your-Universe.jpeg">
                     </div>
-                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">love.</p>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
                   </div>
                   <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
-                    <p class="w-full">wave to earth</p>
-                    <p class="w-full">5:08</p>
+                    <p class="w-full">Rico Blanco</p>
+                    <p class="w-full">3:58</p>
                   </div>
                   <div class="w-30 text-center max-sm:w-10">
                     <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
                       <i class="fas fa-envelope"></i>
                     </a>
                   </div>
-                </button>
-                <div class="h-15 max-sm:h-12">
                 </div>
-                <div class="h-15 max-sm:h-12">
+                <div class="flex items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                  <div class="flex items-center text-center">
+                    <p class="px-4 max-sm:pl-2 max-sm:pr-1">1</p>
+                    <div class="w-10 h-10 ml-3">
+                      <img class="w-full h-full object-cover rounded" src="/assets/Your-Universe.jpeg">
+                    </div>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
+                  </div>
+                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                    <p class="w-full">Rico Blanco</p>
+                    <p class="w-full">3:58</p>
+                  </div>
+                  <div class="w-30 text-center max-sm:w-10">
+                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                  </div>
                 </div>
-                <div class="h-15 max-sm:h-12">
+                <div class="flex items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                  <div class="flex items-center text-center">
+                    <p class="px-4 max-sm:pl-2 max-sm:pr-1">1</p>
+                    <div class="w-10 h-10 ml-3">
+                      <img class="w-full h-full object-cover rounded" src="/assets/Your-Universe.jpeg">
+                    </div>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
+                  </div>
+                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                    <p class="w-full">Rico Blanco</p>
+                    <p class="w-full">3:58</p>
+                  </div>
+                  <div class="w-30 text-center max-sm:w-10">
+                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                  <div class="flex items-center text-center">
+                    <p class="px-4 max-sm:pl-2 max-sm:pr-1">1</p>
+                    <div class="w-10 h-10 ml-3">
+                      <img class="w-full h-full object-cover rounded" src="/assets/Your-Universe.jpeg">
+                    </div>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
+                  </div>
+                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                    <p class="w-full">Rico Blanco</p>
+                    <p class="w-full">3:58</p>
+                  </div>
+                  <div class="w-30 text-center max-sm:w-10">
+                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                  <div class="flex items-center text-center">
+                    <p class="px-4 max-sm:pl-2 max-sm:pr-1">1</p>
+                    <div class="w-10 h-10 ml-3">
+                      <img class="w-full h-full object-cover rounded" src="/assets/Your-Universe.jpeg">
+                    </div>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
+                  </div>
+                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                    <p class="w-full">Rico Blanco</p>
+                    <p class="w-full">3:58</p>
+                  </div>
+                  <div class="w-30 text-center max-sm:w-10">
+                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                  <div class="flex items-center text-center">
+                    <p class="px-4 max-sm:pl-2 max-sm:pr-1">1</p>
+                    <div class="w-10 h-10 ml-3">
+                      <img class="w-full h-full object-cover rounded" src="/assets/Your-Universe.jpeg">
+                    </div>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
+                  </div>
+                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                    <p class="w-full">Rico Blanco</p>
+                    <p class="w-full">3:58</p>
+                  </div>
+                  <div class="w-30 text-center max-sm:w-10">
+                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                  <div class="flex items-center text-center">
+                    <p class="px-4 max-sm:pl-2 max-sm:pr-1">1</p>
+                    <div class="w-10 h-10 ml-3">
+                      <img class="w-full h-full object-cover rounded" src="/assets/Your-Universe.jpeg">
+                    </div>
+                    <p class="px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
+                  </div>
+                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                    <p class="w-full">Rico Blanco</p>
+                    <p class="w-full">3:58</p>
+                  </div>
+                  <div class="w-30 text-center max-sm:w-10">
+                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                      <i class="fas fa-envelope"></i>
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div class="h-20">
+              <div class="h-10">
               </div>
             </div>
           </div>
