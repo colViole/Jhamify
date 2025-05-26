@@ -70,6 +70,8 @@ function showFavSong() {
 function showMainView() {
   if (favSongContainer) favSongContainer.style.display = 'none';
   if (mainContentArea) mainContentArea.style.display = 'block';
+
+  favSongButtonOne.classList.remove('bg-[#444]', 'hover:bg-[#555]');
 }
 
 function checkInitialView() {

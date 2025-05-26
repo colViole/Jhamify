@@ -112,23 +112,23 @@
           <!-- Progress Bar -->
             <div class="w-60 mb-2">
               <div class="flex justify-between text-xs text-[#b1b1b1] mb-1">
-                <span>0:00</span>
-                <span>0:00</span>
+                <span id="current-time">0:00</span>
+                <span id="duration">0:00</span>
               </div>
               <div class="h-1 bg-[#333] rounded-full">
-                <div id="progress-bar" class="h-full bg-[#ff7070] rounded-full" style="width: 35%"></div>
+                <div id="progress-bar" class="h-full bg-[#ff7070] rounded-full w-6/1212"></div>
               </div>
             </div>
             
             <!-- Controls -->
             <div class="flex items-center justify-center space-x-6">
-              <button class="text-[#b1b1b1] hover:text-white">
+              <button id="backward-button" class="text-[#b1b1b1] hover:text-white">
                 <i class="fas fa-backward text-lg"></i>
               </button>
-              <button class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:scale-105">
+              <button id="music-play" class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:scale-105">
                 <i class="fas fa-play"></i>
               </button>
-              <button class="text-[#b1b1b1] hover:text-white">
+              <button id="forward-button" class="text-[#b1b1b1] hover:text-white">
                 <i class="fas fa-forward text-lg"></i>
               </button>
             </div>
@@ -137,7 +137,7 @@
             <div class="hidden md:flex items-center w-20 mt-4 space-x-2">
               <i class="fas fa-volume-down text-xs text-[#b1b1b1]"></i>
               <div class="flex-1 h-1 bg-[#333] rounded-full">
-                <div class="h-full bg-[#b1b1b1] rounded-full" style="width: 70%"></div>
+                <div id="volume" class="h-full bg-[#b1b1b1] rounded-full w-0/12"></div>
               </div>
             </div>
         </div>
@@ -154,20 +154,22 @@
         <div class="mx-3 max-sm:mx-3 max-lg:h-[calc(100vh-450px)]">
           <p class="text-xs text-[#b1b1b1] font-bold">Made for</p>
           <h1 class="text-xl font-bold mb-4">Mimi</h1>
-          <button class="flex items-center lg:w-sm w-full p-2 bg-[#333] hover:bg-[#444] rounded text-left">
-            <img class="w-12 h-12 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
-            <div class="ml-3">
-              <span class="block text-sm font-bold">Songs that remind me of you</span>
-              <span class="block text-xs text-[#b1b1b1]">Oshi</span>
-            </div>
-          </button>
-          <button id="favorite-song-content" href="#favorite-song" class="favorite-song flex items-center lg:w-sm w-full p-2 mt-3 bg-[#333] hover:bg-[#444] rounded text-left">
-            <img class="w-12 h-12 object-cover rounded" src="/assets/heart.png" alt="Playlist">
-            <div class="ml-3">
-              <span class="block text-sm font-bold">Favorite Song</span>
-              <span class="block text-xs text-[#b1b1b1]">1 song</span>
-            </div>
-          </button>
+          <div class="md:flex max-md:mr-3">
+            <button class="flex items-center w-full p-2 mx-2 bg-[#333] hover:bg-[#444] rounded text-left">
+              <img class="w-12 h-12 object-cover rounded" src="/assets/mygirl.png" alt="Playlist">
+              <div class="ml-3">
+                <span class="block text-sm font-bold">Songs that remind me of you</span>
+                <span class="block text-xs text-[#b1b1b1]">Oshi</span>
+              </div>
+            </button>
+            <button id="favorite-song-content" href="#favorite-song" class="favorite-song flex items-center w-full p-2 mx-2 bg-[#333] hover:bg-[#444] rounded text-left max-md:mt-3">
+              <img class="w-12 h-12 object-cover rounded" src="/assets/heart.png" alt="Playlist">
+              <div class="ml-3">
+                <span class="block text-sm font-bold">Favorite Song</span>
+                <span class="block text-xs text-[#b1b1b1]">1 song</span>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
       <!-- Favorite Song -->
@@ -236,7 +238,7 @@
                   </div>
                   <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
                     <p class="w-full">wave to earth</p>
-                    <p class="w-full">5:08</p>
+                    <p class="w-full">5:06</p>
                   </div>
                   <div class="w-30 text-center max-sm:w-10">
                     <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
