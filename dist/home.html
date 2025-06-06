@@ -115,7 +115,7 @@
                 <span id="current-time">0:00</span>
                 <span id="duration">0:00</span>
               </div>
-              <div class="h-1 bg-[#333] rounded-full">
+              <div id="progress-container" class="h-1 bg-[#333] rounded-full">
                 <div id="progress-bar" class="h-full bg-[#ff7070] rounded-full w-6/1212"></div>
               </div>
             </div>
@@ -136,8 +136,8 @@
             <!-- Volume Control (visible on larger screens) -->
             <div class="hidden md:flex items-center w-20 mt-4 space-x-2">
               <i class="fas fa-volume-down text-xs text-[#b1b1b1]"></i>
-              <div class="flex-1 h-1 bg-[#333] rounded-full">
-                <div id="volume" class="h-full bg-[#b1b1b1] rounded-full w-0/12"></div>
+              <div id="volume-control" class="flex-1 h-1 bg-[#333] rounded-full">
+                <div id="volume-slider" class="h-full bg-[#b1b1b1] rounded-full w-0/12"></div>
               </div>
             </div>
         </div>

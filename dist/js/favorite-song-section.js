@@ -16,9 +16,30 @@ const progressBar = document.querySelector('#progress-bar');
 const currentTimeEl = document.querySelector('#current-time');
 const durationEl = document.querySelector('#duration'); 
 const musicPlay = document.querySelector('#music-play');
-const volumeControl = document.querySelector('#volume');
+const volumeSlider = document.querySelector('#volume-slider');
+const volumeControl = document.querySelector('#volume-control');
+const progressContainer = document.querySelector('#progress-container')
 
 // Function
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = favSongAudio.duration;
+  favSongAudio.currentTime = (clickX / width) * duration;
+}
+
+function setVolume(e) {
+  let volume = e.offsetX / this.clientWidth;
+  volume = Math.max(0, Math.min(1, volume)); 
+  favSongAudio.volume = volume;
+  volumeSlider.style.width = `${volume * 100}%`;
+  
+  localStorage.setItem('audioVolume', volume);
+}
+
+let isDraggingProgress = false;
+let isDraggingVolume = false;
+
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
@@ -83,6 +104,82 @@ function favSongPlay() {
 }
 
 // Add Event Listeners
+progressContainer.addEventListener('click', setProgress);
+volumeControl.addEventListener('click', setVolume);
+
+progressContainer.addEventListener('mousedown', (e) => {
+  isDraggingProgress = true;
+  setProgress(e); 
+});
+
+volumeControl.addEventListener('mousedown', (e) => {
+  isDraggingVolume = true;
+  setVolume(e);
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (isDraggingProgress) {
+    const rect = progressContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = x / rect.width;
+    const duration = favSongAudio.duration;
+    favSongAudio.currentTime = percentage * duration;
+  }
+  
+  if (isDraggingVolume) {
+    const rect = volumeControl.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    let volume = x / rect.width;
+    volume = Math.max(0, Math.min(1, volume));
+    favSongAudio.volume = volume;
+    volumeSlider.style.width = `${volume * 100}%`;
+    localStorage.setItem('audioVolume', volume);
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isDraggingProgress = false;
+  isDraggingVolume = false;
+});
+
+progressContainer.addEventListener('touchstart', (e) => {
+  isDraggingProgress = true;
+  const touch = e.touches[0];
+  const mouseEvent = new MouseEvent('mousedown', {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  progressContainer.dispatchEvent(mouseEvent);
+});
+
+volumeControl.addEventListener('touchstart', (e) => {
+  isDraggingVolume = true;
+  const touch = e.touches[0];
+  const mouseEvent = new MouseEvent('mousedown', {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  volumeControl.dispatchEvent(mouseEvent);
+});
+
+document.addEventListener('touchmove', (e) => {
+  if (isDraggingProgress || isDraggingVolume) {
+    e.preventDefault();
+  }
+  
+  const touch = e.touches[0];
+  const mouseEvent = new MouseEvent('mousemove', {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  document.dispatchEvent(mouseEvent);
+}, { passive: false });
+
+document.addEventListener('touchend', () => {
+  isDraggingProgress = false;
+  isDraggingVolume = false;
+});
+
 favSongPlayButton.addEventListener('click', favSongToggle);
 love.addEventListener('click', favSongToggle);
 musicPlay.addEventListener('click', favSongToggle);
@@ -152,6 +249,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const seekTime = Math.min(savedTime, favSongAudio.duration - 0.5);
     favSongAudio.currentTime = seekTime;
   }
+  
+  const savedVolume = parseFloat(localStorage.getItem('audioVolume')) || 0.7;
+  favSongAudio.volume = savedVolume;
+  volumeSlider.style.width = `${savedVolume * 100}%`;
 });
 
 favSongAudio.addEventListener('timeupdate', function() {
