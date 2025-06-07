@@ -70,6 +70,8 @@ function showFavSong() {
 function showMainView() {
   if (favSongContainer) favSongContainer.style.display = 'none';
   if (mainContentArea) mainContentArea.style.display = 'block';
+  document.querySelector('#library-section').classList.add('from-[#460101]/70');
+  document.querySelector('#library-section').classList.remove('from-[#e81e63]/70');
 
   favSongButtonOne.classList.remove('bg-[#444]', 'hover:bg-[#555]');
 }

@@ -1,12 +1,13 @@
 // Button Interfaces
 const number = document.querySelector('.number');
 const favSongIcon = document.querySelector('#fav-song-icon');
-    const icon = document.querySelector('.icon');
+const icon = document.querySelector('.icon');
 
 // Song Elements
 const love = document.querySelector('#love-w2e');
 const favSongAudio = document.querySelector('#love-by-wavetoearth');
 const favSongPlayButton = document.querySelector('#fav-song-play-button');
+
 
 // Music Player Elements
 const songCover = document.querySelector('#song-cover');
@@ -67,6 +68,10 @@ function favSongToggle() {
     songArtist.textContent = 'wave to earth';
     number.classList.add('text-[#ff7070]');
     icon.classList.add('text-[#ff7070]');
+    document.querySelector('#favorite-song-container').classList.remove('from-[#460101]/70');
+    document.querySelector('#favorite-song-container').classList.add('from-[#e81e63]/70');
+    document.querySelector('#library-section').classList.remove('from-[#460101]/70');
+    document.querySelector('#library-section').classList.add('from-[#e81e63]/70');
 
     love.addEventListener('mouseover', function() {
       number.innerHTML = '<i class="fa-solid fa-pause text-xs max-sm:text-[8px]"></i>';
@@ -84,6 +89,10 @@ function favSongToggle() {
     favSongPlayButton.innerHTML = '<i class="fa-solid fa-play"></i>';
     musicPlay.innerHTML = '<i class="fa-solid fa-play"></i>';
     number.innerHTML = number.dataset.original;
+    document.querySelector('#favorite-song-container').classList.add('from-[#460101]/70');
+    document.querySelector('#favorite-song-container').classList.remove('from-[#e81e63]/70');
+    document.querySelector('#library-section').classList.add('from-[#460101]/70');
+    document.querySelector('#library-section').classList.remove('from-[#e81e63]/70');
 
     love.addEventListener('mouseover', function() {
       number.innerHTML = '<i class="fa-solid fa-play text-xs max-sm:text-[8px]"></i>';
@@ -99,6 +108,7 @@ function favSongToggle() {
 
 function favSongPlay() {
   const icon = document.querySelector('.icon');
+
   number.classList.add('text-[#ff7070]');
   icon.classList.add('text-[#ff7070]');
 }
