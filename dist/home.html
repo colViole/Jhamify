@@ -8,6 +8,10 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <style>
+#main-content-area, #library-section, 
+#favorite-song-container, #created-playlist-container {
+  transition: background 2s ease-in;
+}
 ::-webkit-scrollbar {
   width: 5px; 
 }
@@ -103,8 +107,8 @@
           </div>
           <!-- Song Info -->
             <div class="w-full text-left mb-4 ml-1">
-              <h3 id="song-title" class="text-sm font-bold truncate">No Song</h3>
-              <p id="song-artist" class="text-xs text-[#b1b1b1] truncate">Unknown Artist</p>
+              <h3 id="now-playing" class="text-sm font-bold truncate">No Song</h3>
+              <p id="current-artist" class="text-xs text-[#b1b1b1] truncate">Unknown Artist</p>
             </div>
         </div>
 
@@ -122,20 +126,20 @@
             
             <!-- Controls -->
             <div class="flex items-center justify-center space-x-6">
-              <button id="backward-button" class="text-[#b1b1b1] hover:text-white">
+              <button id="prev-btn" class="text-[#b1b1b1] hover:text-white">
                 <i class="fas fa-backward text-lg"></i>
               </button>
-              <button id="music-play" class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:scale-105">
+              <button id="play-btn" class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:scale-105">
                 <i class="fas fa-play"></i>
               </button>
-              <button id="forward-button" class="text-[#b1b1b1] hover:text-white">
+              <button id="next-btn" class="text-[#b1b1b1] hover:text-white">
                 <i class="fas fa-forward text-lg"></i>
               </button>
             </div>
             
             <!-- Volume Control (visible on larger screens) -->
             <div class="hidden md:flex items-center w-20 mt-4 space-x-2">
-              <i class="fas fa-volume-down text-xs text-[#b1b1b1]"></i>
+              <i id="volume-icon" class="fas fa-volume-down text-xs text-[#b1b1b1]"></i>
               <div id="volume-control" class="flex-1 h-1 bg-[#333] rounded-full">
                 <div id="volume-slider" class="h-full bg-[#b1b1b1] rounded-full w-0/12"></div>
               </div>
@@ -197,7 +201,7 @@
           <div class="flex-1 mt-6 bg-neutral-900/30 max-sm:bg-black/40 max-h-full">
             <div class="flex items-center justify-between py-3">
               <div class="pl-4">
-                <button id="fav-song-play-button" class="w-13 h-13 max-sm:w-9 max-sm:h-9 bg-[#940808] hover:bg-[#b61515] rounded-full transition-colors">
+                <button id="play-all-button-favorite" data-playlist="favorite" class="w-13 h-13 max-sm:w-9 max-sm:h-9 bg-[#940808] hover:bg-[#b61515] rounded-full transition-colors">
                   <i class="fa-solid fa-play"></i>
                 </button>
                 <button>
@@ -228,24 +232,28 @@
               <!-- Scrollable content -->
               <div class="max-h-70 max-sm:h-full overflow-y-auto pl-9.5 pr-10 max-sm:px-2">
                 <!-- Song Row -->
-                <button id="love-w2e" class="love flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
-                  <div class="flex items-center text-center">
-                    <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="1">1</p>
-                    <div class="w-10 h-10 ml-3">
-                      <img class="w-full h-full object-cover rounded" src="/assets/Love.jpeg">
+                <ul>
+                  <li id="song-item-favorite" data-playlist="favorite" data-src="/assets/music/wave to earth - love.mp3" data-title="love." data-artist="wave to earth">
+                    <button id="favorite-item" class="favorite-item flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                    <div class="flex items-center text-center">
+                      <p class="number-favorite px-4 max-sm:pl-2 max-sm:pr-1" data-original="1">1</p>
+                      <div class="w-10 h-10 ml-3">
+                        <img class="w-full h-full object-cover rounded" src="/assets/cover/Love.jpeg">
+                      </div>
+                      <p class="icon-favorite px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">love.</p>
                     </div>
-                    <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">love.</p>
-                  </div>
-                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
-                    <p class="w-full">wave to earth</p>
-                    <p class="w-full">5:06</p>
-                  </div>
-                  <div class="w-30 text-center max-sm:w-10">
-                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
-                      <i class="fas fa-envelope"></i>
-                    </a>
-                  </div>
-                </button>
+                    <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                      <p class="w-full">wave to earth</p>
+                      <p class="w-full">5:06</p>
+                    </div>
+                    <div class="w-30 text-center max-sm:w-10">
+                      <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                        <i class="fas fa-envelope"></i>
+                      </a>
+                    </div>
+                  </button>
+                  </li>
+                </ul>
                 <div class="h-15 max-sm:h-12">
                 </div>
                 <div class="h-15 max-sm:h-12">
@@ -285,7 +293,7 @@
           <div class="flex-1 mt-6 bg-neutral-900/30 max-sm:bg-black/40 max-h-full">
             <div class="flex items-center justify-between py-3">
               <div class="pl-4">
-                <button id="fav-song-play-button" class="w-13 h-13 max-sm:w-9 max-sm:h-9 bg-[#940808] hover:bg-[#b61515] rounded-full transition-colors">
+                <button id="play-all-button" class="w-13 h-13 max-sm:w-9 max-sm:h-9 bg-[#940808] hover:bg-[#b61515] rounded-full transition-colors">
                   <i class="fa-solid fa-play"></i>
                 </button>
                 <button>
@@ -316,32 +324,108 @@
               <!-- Scrollable content -->
               <div class="max-h-70 max-sm:h-full overflow-y-auto pl-9.5 pr-10 max-sm:px-2">
                 <!-- Song Row -->
-                <button id="love-w2e" class="love flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
-                  <div class="flex items-center text-center">
-                    <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="1">1</p>
-                    <div class="w-10 h-10 ml-3">
-                      <img class="w-full h-full object-cover rounded" src="/assets/Love.jpeg">
+                <ul>
+                  <li class="song-item" data-playlist="song" data-src="/assets/music/Rico Blanco - Your Universe.mp3" data-title="Your Universe" data-artist="Rico Blanco">
+                    <button class="flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                    <div class="flex items-center text-center">
+                      <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="1">1</p>
+                      <div class="w-10 h-10 ml-3">
+                        <img class="w-full h-full object-cover rounded" src="/assets/cover/your universe.jpeg">
+                      </div>
+                      <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Your Universe</p>
                     </div>
-                    <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">love.</p>
-                  </div>
-                  <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
-                    <p class="w-full">wave to earth</p>
-                    <p class="w-full">5:06</p>
-                  </div>
-                  <div class="w-30 text-center max-sm:w-10">
-                    <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
-                      <i class="fas fa-envelope"></i>
-                    </a>
-                  </div>
-                </button>
-                <div class="h-15 max-sm:h-12">
-                </div>
-                <div class="h-15 max-sm:h-12">
-                </div>
-                <div class="h-15 max-sm:h-12">
-                </div>
-              </div>
-              <div class="h-20">
+                    <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                      <p class="w-full">Rico Blanco</p>
+                      <p class="w-full">3:57</p>
+                    </div>
+                    <div class="w-30 text-center max-sm:w-10">
+                      <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                        <i class="fas fa-envelope"></i>
+                      </a>
+                    </div>
+                  </button>
+                  </li>
+                  <li class="song-item" data-playlist="song" data-src="/assets/music/Paramore - The Only Exception.mp3" data-title="The Only Exception" data-artist="Paramore">
+                    <button class="flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                    <div class="flex items-center text-center">
+                      <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="2">2</p>
+                      <div class="w-10 h-10 ml-3">
+                        <img class="w-full h-full object-cover rounded" src="/assets/cover/Only Exception.jpeg">
+                      </div>
+                      <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">The Only Exception</p>
+                    </div>
+                    <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                      <p class="w-full">Paramore</p>
+                      <p class="w-full">4:27</p>
+                    </div>
+                    <div class="w-30 text-center max-sm:w-10">
+                      <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                        <i class="fas fa-envelope"></i>
+                      </a>
+                    </div>
+                  </button>
+                  </li>
+                  <li class="song-item" data-playlist="song" data-src="/assets/music/I See the Light.mp3" data-title="I See The Light" data-artist="Mandy Moore, Zachary Levi">
+                    <button class="flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                    <div class="flex items-center text-center">
+                      <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="3">3</p>
+                      <div class="w-10 h-10 ml-3">
+                        <img class="w-full h-full object-cover rounded" src="/assets/cover/I See The Light.jpg">
+                      </div>
+                      <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">I See The Light</p>
+                    </div>
+                    <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                      <p class="w-full">Mandy Moore, Zachary Levi</p>
+                      <p class="w-full">3:43</p>
+                    </div>
+                    <div class="w-30 text-center max-sm:w-10">
+                      <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                        <i class="fas fa-envelope"></i>
+                      </a>
+                    </div>
+                  </button>
+                  </li>
+                  <li class="song-item" data-playlist="song" data-src="/assets/music/Niall Horan - This Town.mp3" data-title="This Town" data-artist="Niall Horan">
+                    <button class="flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                    <div class="flex items-center text-center">
+                      <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="4">4</p>
+                      <div class="w-10 h-10 ml-3">
+                        <img class="w-full h-full object-cover rounded" src="/assets/cover/This Town.jpeg">
+                      </div>
+                      <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">This Town</p>
+                    </div>
+                    <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                      <p class="w-full">Niall Horan</p>
+                      <p class="w-full">3:55</p>
+                    </div>
+                    <div class="w-30 text-center max-sm:w-10">
+                      <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                        <i class="fas fa-envelope"></i>
+                      </a>
+                    </div>
+                  </button>
+                  </li>
+                  <li class="song-item" data-playlist="song" data-src="/assets/music/Stephen Speaks Out Of My League.mp3" data-title="Out of My League" data-artist="Stephen Speaks">
+                    <button class="flex w-full items-center justify-between hover:bg-[#333] text-white max-sm:text-[11px] max-sm:mx-1 rounded h-15 max-sm:h-12">
+                    <div class="flex items-center text-center">
+                      <p class="number px-4 max-sm:pl-2 max-sm:pr-1" data-original="5">5</p>
+                      <div class="w-10 h-10 ml-3">
+                        <img class="w-full h-full object-cover rounded" src="/assets/cover/Out of My League.jpg">
+                      </div>
+                      <p class="icon px-3 w-50 max-sm:w-20 max-sm:ml-1 max-sm:pl-2 max-sm:pr-1">Out of My League</p>
+                    </div>
+                    <div class="flex items-center justify-center text-center flex-1 mx-2 sm:mx-4 space-x-2 sm:space-x-4 max-sm:hidden">
+                      <p class="w-full">Stephen Speaks</p>
+                      <p class="w-full">3:38</p>
+                    </div>
+                    <div class="w-30 text-center max-sm:w-10">
+                      <a class="text-2xl max-sm:text-sm text-[#b1b1b1] hover:text-[#ff7070]">
+                        <i class="fas fa-envelope"></i>
+                      </a>
+                    </div>
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -359,10 +443,11 @@
   </div>
 
   <!-- Audio -->
-  <audio id="love-by-wavetoearth" src="/assets/music/wave to earth - love.mp3"></audio>
+  <audio id="audio-player"></audio>
 
   <!-- Scripts -->
   <script src="/dist/js/navigation.js"></script>
+  <script src="/dist/js/main.js"></script>
 
 </body>
 </html>
