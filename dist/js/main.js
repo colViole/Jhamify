@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const playlistContainer = document.getElementById('created-playlist-container'); 
   
   // Volume control elements
+  const volumeControl = document.getElementById('volume-control');
   const volumeSlider = document.getElementById('volume-slider');
   const volumeIcon = document.getElementById('volume-icon');
-  let lastVolume = 1; // Store last volume for mute/unmute
-
+  
   // Song data
   const favorite = [
     {
@@ -76,70 +76,141 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   ];
 
+  // Player state
   let currentSongIndex = 0;
   let isPlaying = false;
   let currentPlaylist = songs;
   let isFavoritePlaylist = false;
+  let currentVolume = 0.7;
+  let previousVolume = currentVolume;
 
-  // Initialize volume
-  audioPlayer.volume = 0.7; // Default volume (70%)
-  if (volumeSlider) {
-    volumeSlider.value = 70;
+  // Initialize player from localStorage
+  function initPlayerState() {
+    const savedState = localStorage.getItem('musicPlayerState');
+    if (savedState) {
+      const state = JSON.parse(savedState);
+      
+      // Restore playlist state
+      isFavoritePlaylist = state.isFavoritePlaylist;
+      currentPlaylist = isFavoritePlaylist ? favorite : songs;
+      currentSongIndex = state.currentSongIndex;
+      
+      // Restore volume
+      currentVolume = state.currentVolume;
+      previousVolume = state.previousVolume;
+      audioPlayer.volume = currentVolume;
+      
+      // Load the song but don't play yet
+      loadSong(currentSongIndex, false);
+      
+      // Update UI to reflect paused state
+      updateVolumeSlider(currentVolume);
+      updateVolumeIcon();
+      updatePlaylistButtons();
+      updateAllSongItems();
+      
+      // Restore progress if available
+      if (state.currentTime) {
+        setTimeout(() => {
+          audioPlayer.currentTime = state.currentTime;
+        }, 100);
+      }
+    } else {
+      // Initialize with first song
+      loadSong(currentSongIndex, false);
+    }
   }
 
-  // Volume control functions
-  function updateVolumeIcon(volume) {
-    if (!volumeIcon) return;
+  // Save player state to localStorage
+  function savePlayerState() {
+    const state = {
+      currentSongIndex,
+      isFavoritePlaylist,
+      currentVolume,
+      previousVolume,
+      currentTime: audioPlayer.currentTime
+    };
+    localStorage.setItem('musicPlayerState', JSON.stringify(state));
+  }
+
+  // Initialize volume control
+  function initVolume() {
+    updateVolumeSlider(currentVolume);
+    updateVolumeIcon();
     
-    if (volume === 0) {
-      volumeIcon.className = 'fas fa-volume-mute';
-    } else if (volume < 0.5) {
-      volumeIcon.className = 'fas fa-volume-down';
-    } else {
-      volumeIcon.className = 'fas fa-volume-up';
-    }
-  }
-
-  function setVolume(volume) {
-    audioPlayer.volume = volume;
-    updateVolumeIcon(volume);
-    lastVolume = volume; // Store last volume for mute/unmute
-  }
-
-  function toggleMute() {
-    if (audioPlayer.volume > 0) {
-      lastVolume = audioPlayer.volume;
-      setVolume(0);
-      if (volumeSlider) volumeSlider.value = 0;
-    } else {
-      setVolume(lastVolume);
-      if (volumeSlider) volumeSlider.value = lastVolume * 100;
-    }
-  }
-
-  // Volume event listeners
-  if (volumeSlider) {
-    volumeSlider.addEventListener('input', function() {
-      const volume = this.value / 100;
-      setVolume(volume);
+    volumeControl.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percentage = Math.min(1, Math.max(0, x / rect.width));
+      currentVolume = percentage;
+      audioPlayer.volume = currentVolume;
+      updateVolumeSlider(currentVolume);
+      updateVolumeIcon();
+      savePlayerState();
+    });
+    
+    let isDragging = false;
+    
+    volumeControl.addEventListener('mousedown', function() {
+      isDragging = true;
+    });
+    
+    document.addEventListener('mousemove', function(e) {
+      if (isDragging) {
+        const rect = volumeControl.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percentage = Math.min(1, Math.max(0, x / rect.width));
+        currentVolume = percentage;
+        audioPlayer.volume = currentVolume;
+        updateVolumeSlider(currentVolume);
+        updateVolumeIcon();
+        savePlayerState();
+      }
+    });
+    
+    document.addEventListener('mouseup', function() {
+      isDragging = false;
+    });
+    
+    volumeIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (currentVolume > 0) {
+        if (volumeIcon.classList.contains('fa-volume-mute')) {
+          currentVolume = previousVolume || 0.7;
+        } else {
+          previousVolume = currentVolume;
+          currentVolume = 0;
+        }
+      } else {
+        currentVolume = previousVolume || 0.7;
+      }
+      audioPlayer.volume = currentVolume;
+      updateVolumeSlider(currentVolume);
+      updateVolumeIcon();
+      savePlayerState();
     });
   }
-
-  if (volumeIcon) {
-    volumeIcon.addEventListener('click', toggleMute);
+  
+  function updateVolumeSlider(volume) {
+    volumeSlider.style.width = `${volume * 100}%`;
+  }
+  
+  function updateVolumeIcon() {
+    if (currentVolume === 0) {
+      volumeIcon.className = 'fas fa-volume-mute text-xs text-[#b1b1b1]';
+    } else if (currentVolume < 0.5) {
+      volumeIcon.className = 'fas fa-volume-down text-xs text-[#b1b1b1]';
+    } else {
+      volumeIcon.className = 'fas fa-volume-up text-xs text-[#b1b1b1]';
+    }
   }
 
-  // Rest of your existing functions (loadSong, playSong, pauseSong, etc.)
-  // ... [Keep all your existing functions exactly as they were] ...
-
-  // Helper function to reset all playlist states
   function resetAllPlaylistStates() {
     createdPlay.innerHTML = '<i class="fas fa-play"></i>';
     playFavorite.innerHTML = '<i class="fas fa-play"></i>';
     updateAllSongItems();
   }
 
-  // Helper function to update playlist buttons
   function updatePlaylistButtons() {
     if (isPlaying) {
       if (isFavoritePlaylist) {
@@ -213,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  function loadSong(index) {
+  function loadSong(index, autoplay = true) {
     const song = currentPlaylist[index];
     audioPlayer.src = song.audio;
     songCover.src = song.cover;
@@ -228,6 +299,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     updateAllSongItems();
+    
+    if (autoplay && isPlaying) {
+      audioPlayer.play().catch(e => {
+        console.log("Autoplay prevented:", e);
+        isPlaying = false;
+        updatePlaylistButtons();
+        updateAllSongItems();
+      });
+    }
+    
+    savePlayerState();
   }
 
   function updateAllSongItems() {
@@ -242,10 +324,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function playSong() {
     isPlaying = true;
-    audioPlayer.play();
-    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    updatePlaylistButtons();
-    updateAllSongItems();
+    audioPlayer.play()
+      .then(() => {
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        updatePlaylistButtons();
+        updateAllSongItems();
+        savePlayerState();
+      })
+      .catch(e => {
+        console.log("Playback failed:", e);
+        isPlaying = false;
+      });
   }
  
   function pauseSong() {
@@ -254,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     playBtn.innerHTML = '<i class="fas fa-play"></i>';
     updatePlaylistButtons();
     updateAllSongItems();
+    savePlayerState();
   }
 
   function formatTime(seconds) {
@@ -267,6 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressPercent = (currentTime / duration) * 100;
     progressBar.style.width = `${progressPercent}%`;
     currentTimeDisplay.textContent = formatTime(currentTime);
+    savePlayerState();
   }
   
   function setProgress(e) {
@@ -274,6 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const clickX = e.offsetX;
     const duration = audioPlayer.duration;
     audioPlayer.currentTime = (clickX / width) * duration;
+    savePlayerState();
   }
   
   function prevSong() {
@@ -316,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Play all button for favorite playlist
+  // Event listeners for playlist controls
   document.querySelector('#play-all-button-favorite').addEventListener('click', function() {
     if (isFavoritePlaylist) {
       isPlaying ? pauseSong() : playSong();
@@ -330,7 +422,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Favorite song item click
   document.querySelector('#favorite-item')?.addEventListener('click', function() {
     if (!isFavoritePlaylist) {
       resetAllPlaylistStates();
@@ -344,7 +435,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Play all button for main playlist
   document.querySelector('#play-all-button').addEventListener('click', function() {
     if (!isFavoritePlaylist) {
       isPlaying ? pauseSong() : playSong();
@@ -378,13 +468,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     item.addEventListener('click', () => {
-      // If clicking the currently playing song in the current playlist
       if (!isFavoritePlaylist && currentSongIndex === index) {
-        // Just toggle play/pause without reloading
         isPlaying ? pauseSong() : playSong();
-      } 
-      // If switching from favorite playlist or selecting a different song
-      else {
+      } else {
         if (isFavoritePlaylist) {
           resetAllPlaylistStates();
           currentPlaylist = songs;
@@ -426,11 +512,20 @@ document.addEventListener('DOMContentLoaded', function() {
   audioPlayer.addEventListener('ended', nextSong);
   
   progressContainer.addEventListener('click', setProgress);
-  
-  // Initialize with first song
-  currentPlaylist = songs;
-  isFavoritePlaylist = false;
-  loadSong(currentSongIndex);
+
+  // Save state before page unload
+  window.addEventListener('beforeunload', () => {
+    // Always pause before unloading
+    if (isPlaying) {
+      audioPlayer.pause();
+      isPlaying = false;
+    }
+    savePlayerState();
+  });
+
+  // Initialize player
+  initPlayerState();
+  initVolume();
   
   // Handle letter button clicks
   document.querySelectorAll('.fa-envelope').forEach(button => {
