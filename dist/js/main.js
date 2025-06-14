@@ -73,6 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
       audio: "/assets/music/Stephen Speaks - Out Of My League.mp3",
       bgFrom: "#808080",  
       bgTo: "#121212"
+    },
+    {
+      title: "Blessed",
+      artist: "Daniel Caesar",
+      cover: "/assets/cover/Blessed.jpeg",
+      audio: "/assets/music/Blessed.mp3",
+      bgFrom: "#217186",  
+      bgTo: "#121212"
     }
   ];
 
